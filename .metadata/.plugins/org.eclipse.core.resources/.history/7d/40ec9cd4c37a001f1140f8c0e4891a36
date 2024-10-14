@@ -1,0 +1,109 @@
+/*
+kalmanFilter_assembly.s
+*/
+ .section .data
+
+.syntax unified //as.pdf
+.align 16
+.section .text, "x"
+
+.global kalmanFilter_assembly
+
+kalmanFilter_assembly:	//label
+/*
+SAVE SPACE FOR THE 5 VARIABLES
+NEED ONE TEMPORARY REGISTOR IN THE STACK
+USE STRUCT TO READ AND WRITE FROM THE MEMORY
+PUSH THE INPUT --> POP THE APPROPRIATE VALUE
+*/
+/*
+
+
+S0 = x (final value) not used
+
+
+
+S1 = x (arithmetic)
+S2 = measurement
+S3 = q
+S4 = r
+S5 = p
+S6 = k
+S7 = temp
+S8 = integer 1
+*/
+	VPUSH.32 {S1-S8} //pushing floating type registers into stack to initialize the above 7 registers
+
+	VLDR.F32 S3,[R0] //q
+	VLDR.F32 S4,[R0, #4] //r
+	VLDR.F32 S1,[R0, #8] //x
+	VLDR.F32 S5,[R0, #12] //p
+	VLDR.F32 S6,[R0, #16] //k
+/*
+p=p+q
+k=p/(p+r)
+x=x+k(measurement-x)
+p=(1-k)*p
+
+FLOATING ASSEMBLY PROGRAM EXAMPLE
+VADD, SPECIAL REGISTERS S
+*/
+
+	//VADD.F32 S3, S3, S0 //p = p+q
+	//VADD.F32 S5, S3, S1 //temp = p+r
+	//VDIV.F32 S4, S3, S5 //k = p/temp
+	//VSUB.F32 S5, S6, S2 //temp = measurement-x
+	//VMUL.F32 S5, S4, S5 //temp = k*temp --> (here temp = measurement-x)
+	//VADD.F32 S2, S2, S5 //x = x+temp
+	//VSUB.F32 S5, #1.0, S4 //temp = 1-k
+	//VMUL.F32 S3, S5, S3 //p = temp*p
+//	VMOV.32 S0, S1 //loading the value we had in x(aritmetic) into x(final value)
+
+/*
+S0 = measurement
+S1 = x (arithmetic)
+S3 = q
+S4 = r
+S5 = p
+S6 = k
+S7 = temp
+S8 = integer 1
+*/
+
+	// p=p+q
+	VADD.F32 S5, S5, S3 //p = p+q
+	//k=p/(p+r)
+	VADD.F32 S7, S5, S4 //temp = p+r
+	VDIV.F32 S6, S5, S7 //k = p/temp
+
+
+	//x=x+k(measurement-x)
+	VSUB.F32 S7, S0, S1 //temp = measurement-x
+	VMUL.F32 S7, S6, S7 //temp = k*temp --> (here temp = measurement-x)
+	VADD.F32 S1, S1, S7 //x = x+temp
+
+
+	//p=(1-k)*p
+	VMOV.F32 S7, #1.0 //loading floating value 1 into S7
+	VSUB.F32 S7, S7, S6 //temp = 1-k
+	VMUL.F32 S5, S7, S5 //p = temp*p
+
+	TST R0, 0b1111 //checking if R0 is raising the overflow, zero, and negative flag
+	BNE ERROR //if its not equal to 0, branch to ERROR (not equal to 0 -->
+
+	//store back
+	VSTR.F32 S3,[R0] //q
+	VSTR.F32 S4,[R0, #4] //r
+	VSTR.F32 S1,[R0, #8] //x
+	VSTR.F32 S5,[R0, #12] //p
+	VSTR.F32 S6,[R0, #16] //k
+
+ERROR:
+	VMOV.F32 S0, #-1.0
+
+
+END:	//end label
+
+	VPOP.32 {S1-S8} //popping all pushed in registers
+
+	BX LR	//end and return

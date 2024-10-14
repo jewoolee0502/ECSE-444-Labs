@@ -1,0 +1,10 @@
+14:21:17 **** Incremental Build of configuration Debug for project Tutorial2 ****
+make -j7 all 
+arm-none-eabi-size  Tutorial2.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6336	    272	   1704	   8312	   2078	Tutorial2.elf
+Finished building: default.size.stdout
+ 
+
+14:21:17 Build Finished. 0 errors, 0 warnings. (took 215ms)
+

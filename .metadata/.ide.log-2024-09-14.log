@@ -1,0 +1,3 @@
+2024-09-14 10:53:55,665 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] ***WARNING: Display must be created on main thread due to Cocoa restrictions. Use vmarg -XstartOnFirstThread
+2024-09-14 10:53:55,688 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] ***WARNING: Display must be created on main thread due to Cocoa restrictions. Use vmarg -XstartOnFirstThread
+2024-09-14 10:53:56,165 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Lab1_KalmanFilter/Core/Lib/libarm_cortexM4lf_math.a&apos; to &apos;arm_cortexM4lf_math.a&apos;" description="Rename resource &apos;libarm_cortexM4lf_math.a&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Lib/libarm_cortexM4lf_math.a" name="arm_cortexM4lf_math.a" stamp="1728075481445" updateReferences="true"/>
+</session>
