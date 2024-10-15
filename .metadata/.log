@@ -1291,3 +1291,11 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/jewoo
 
 !ENTRY org.eclipse.cdt.core 1 0 2024-10-14 12:34:20.075
 !MESSAGE Indexed 'Lab2' (32 sources, 93 headers) in 10.3 sec: 8,847 declarations; 69,036 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0026%)
+
+!ENTRY org.eclipse.core.resources 2 2 2024-10-15 12:02:48.065
+!MESSAGE Save operation warnings.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2024-10-15 12:02:48.065
+!MESSAGE The project description file (.project) for 'Lab1' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-15 12:03:25.077
+!MESSAGE Indexed 'Lab1' (23 sources, 121 headers) in 6.95 sec: 14,134 declarations; 49,474 references; 3 unresolved inclusions; 46 syntax errors; 171 unresolved names (0.27%)

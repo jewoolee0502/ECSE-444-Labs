@@ -1,0 +1,4 @@
+ToolSet: 1.0 (local)Ninja: 1.12.0@/private/var/folders/7w/1h32z1sx0t9dwfpfdpygmknm0000gn/T/AppTranslocation/E92D19D7-BEB8-4E7A-8FFD-1603432A489A/d/CLion.app/Contents/bin/ninja/mac/aarch64/ninja
+Options: 
+
+Options:
