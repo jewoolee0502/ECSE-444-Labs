@@ -1,0 +1,62 @@
+2024-10-15 12:35:28,044 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 865772632 Bytes (1073741824)
+2024-10-15 12:35:30,565 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 718929072 Bytes (1073741824)
+2024-10-15 12:35:30,876 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: SYS
+2024-10-15 12:35:30,877 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: RCC
+2024-10-15 12:35:30,877 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: NVIC
+2024-10-15 12:35:30,877 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: GPIO
+2024-10-15 12:35:30,878 [INFO] CodeGenerator:807 - code generatio: config db path: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_6.12.0.202406281431//db/
+2024-10-15 12:35:30,965 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/MXTmpFiles/license.tmp_save
+2024-10-15 12:35:31,150 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/MXTmpFiles/license.tmp
+2024-10-15 12:35:31,162 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/MXTmpFiles/gpio.tmp_save
+2024-10-15 12:35:31,248 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/MXTmpFiles/gpio.tmp
+2024-10-15 12:35:31,269 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Src/stm32l4xx_it.c_save
+2024-10-15 12:35:31,448 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Src/stm32l4xx_it.c
+2024-10-15 12:35:31,451 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Inc/stm32l4xx_it.h_save
+2024-10-15 12:35:31,502 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Inc/stm32l4xx_it.h
+2024-10-15 12:35:31,511 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Src/stm32l4xx_hal_msp.c_save
+2024-10-15 12:35:31,617 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Src/stm32l4xx_hal_msp.c
+2024-10-15 12:35:31,618 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/MXTmpFiles/system.tmp_save
+2024-10-15 12:35:31,667 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/MXTmpFiles/system.tmp
+2024-10-15 12:35:31,671 [INFO] CodeEngine:311 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Inc/stm32l4xx_hal_conf.h_save
+2024-10-15 12:35:31,731 [INFO] CodeEngine:335 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Inc/stm32l4xx_hal_conf.h
+2024-10-15 12:35:31,746 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Inc/main.h_save
+2024-10-15 12:35:31,847 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Inc/main.h
+2024-10-15 12:35:31,850 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Src/main.c_save
+2024-10-15 12:35:31,963 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Src/main.c
+2024-10-15 12:35:32,153 [INFO] ProjectBuilder:3249 - Time for Copy HAL[1] : 64mS.
+2024-10-15 12:35:32,154 [INFO] ProjectBuilder:4828 - Project Generator version: 4.4.0-B60
+2024-10-15 12:35:32,218 [INFO] ConfigFileManager:1531 - The Die is : DIE470
+2024-10-15 12:35:33,271 [INFO] ProjectBuilder:5097 - Time for Generating toolchain IDE Files: 1114mS.
+2024-10-15 12:35:33,272 [INFO] ProjectBuilder:3107 - Time for Copy CMSIS : 0mS.
+2024-10-15 12:35:33,273 [INFO] ProjectBuilder:3107 - Time for Copy CMSIS : 0mS.
+2024-10-15 12:38:05,517 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 723780376 Bytes (1073741824)
+2024-10-15 12:38:09,351 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 809467688 Bytes (1073741824)
+2024-10-15 12:38:09,586 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: SYS
+2024-10-15 12:38:09,586 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: RCC
+2024-10-15 12:38:09,586 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: NVIC
+2024-10-15 12:38:09,587 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: GPIO
+2024-10-15 12:38:09,588 [INFO] CodeGenerator:807 - code generatio: config db path: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_6.12.0.202406281431//db/
+2024-10-15 12:38:09,655 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/MXTmpFiles/license.tmp_save
+2024-10-15 12:38:09,737 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/MXTmpFiles/license.tmp
+2024-10-15 12:38:09,768 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/MXTmpFiles/gpio.tmp_save
+2024-10-15 12:38:09,845 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/MXTmpFiles/gpio.tmp
+2024-10-15 12:38:09,856 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Src/stm32l4xx_it.c_save
+2024-10-15 12:38:09,941 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Src/stm32l4xx_it.c
+2024-10-15 12:38:09,943 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Inc/stm32l4xx_it.h_save
+2024-10-15 12:38:09,995 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Inc/stm32l4xx_it.h
+2024-10-15 12:38:10,001 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Src/stm32l4xx_hal_msp.c_save
+2024-10-15 12:38:10,081 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Src/stm32l4xx_hal_msp.c
+2024-10-15 12:38:10,083 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/MXTmpFiles/system.tmp_save
+2024-10-15 12:38:10,152 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/MXTmpFiles/system.tmp
+2024-10-15 12:38:10,155 [INFO] CodeEngine:311 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Inc/stm32l4xx_hal_conf.h_save
+2024-10-15 12:38:10,210 [INFO] CodeEngine:335 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Inc/stm32l4xx_hal_conf.h
+2024-10-15 12:38:10,223 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Inc/main.h_save
+2024-10-15 12:38:10,280 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Inc/main.h
+2024-10-15 12:38:10,282 [INFO] CodeEngine:255 - oldGeneratedFile, /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Src/main.c_save
+2024-10-15 12:38:10,377 [INFO] CodeEngine:279 - Generated code: /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/Core/Src/main.c
+2024-10-15 12:38:10,568 [INFO] ProjectBuilder:3249 - Time for Copy HAL[1] : 59mS.
+2024-10-15 12:38:10,570 [INFO] ProjectBuilder:4828 - Project Generator version: 4.4.0-B60
+2024-10-15 12:38:10,644 [INFO] ConfigFileManager:1531 - The Die is : DIE470
+2024-10-15 12:38:12,956 [INFO] ProjectBuilder:5097 - Time for Generating toolchain IDE Files: 2382mS.
+2024-10-15 12:38:12,960 [INFO] ProjectBuilder:3107 - Time for Copy CMSIS : 0mS.
+2024-10-15 12:38:12,962 [INFO] ProjectBuilder:3107 - Time for Copy CMSIS : 0mS.
