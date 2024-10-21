@@ -1,20 +1,21 @@
-13:59:39 **** Incremental Build of configuration Debug for project Lab2 ****
+08:37:59 **** Incremental Build of configuration Debug for project Lab2 ****
 make -j7 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c:52:13: warning: 'MX_ADC1_Init' declared 'static' but never defined [-Wunused-function]
-   52 | static void MX_ADC1_Init(void);
-      |             ^~~~~~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:108:9: warning: variable 'RESULT' set but not used [-Wunused-but-set-variable]
+  108 |   float RESULT = 0;
+      |         ^~~~~~
 arm-none-eabi-gcc -o "Lab2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Lab2.elf
  
 arm-none-eabi-size  Lab2.elf 
 arm-none-eabi-objdump -h -S Lab2.elf  > "Lab2.list"
    text	   data	    bss	    dec	    hex	filename
-   6772	     12	   1572	   8356	   20a4	Lab2.elf
+  15564	     12	   1676	  17252	   4364	Lab2.elf
 Finished building: default.size.stdout
  
 Finished building: Lab2.list
  
 
-13:59:40 Build Finished. 0 errors, 1 warnings. (took 1s.3ms)
+08:38:00 Build Finished. 0 errors, 1 warnings. (took 1s.137ms)
 
