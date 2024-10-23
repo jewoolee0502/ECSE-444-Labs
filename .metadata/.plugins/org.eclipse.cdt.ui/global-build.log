@@ -1,9 +1,9 @@
-08:36:33 **** Build of configuration Debug for project Lab2 ****
+14:17:12 **** Incremental Build of configuration Debug for project Lab2 ****
 make -j7 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:108:9: warning: variable 'RESULT' set but not used [-Wunused-but-set-variable]
-  108 |   float RESULT = 0;
+../Core/Src/main.c:109:9: warning: variable 'RESULT' set but not used [-Wunused-but-set-variable]
+  109 |   float RESULT = 0;
       |         ^~~~~~
 arm-none-eabi-gcc -o "Lab2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Lab2.elf
@@ -11,24 +11,24 @@ Finished building target: Lab2.elf
 arm-none-eabi-size  Lab2.elf 
 arm-none-eabi-objdump -h -S Lab2.elf  > "Lab2.list"
    text	   data	    bss	    dec	    hex	filename
-  15548	     12	   1676	  17236	   4354	Lab2.elf
+  15604	     12	   1676	  17292	   438c	Lab2.elf
 Finished building: default.size.stdout
  
 Finished building: Lab2.list
  
-08:36:39 **** Incremental Build of configuration Debug for project Lab2 ****
+14:17:22 **** Incremental Build of configuration Debug for project Lab2 ****
 make -j7 all 
 arm-none-eabi-size  Lab2.elf 
    text	   data	    bss	    dec	    hex	filename
-  15548	     12	   1676	  17236	   4354	Lab2.elf
+  15604	     12	   1676	  17292	   438c	Lab2.elf
 Finished building: default.size.stdout
  
-08:37:59 **** Incremental Build of configuration Debug for project Lab2 ****
+14:19:56 **** Incremental Build of configuration Debug for project Lab2 ****
 make -j7 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:108:9: warning: variable 'RESULT' set but not used [-Wunused-but-set-variable]
-  108 |   float RESULT = 0;
+../Core/Src/main.c:109:9: warning: variable 'RESULT' set but not used [-Wunused-but-set-variable]
+  109 |   float RESULT = 0;
       |         ^~~~~~
 arm-none-eabi-gcc -o "Lab2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Lab2.elf
@@ -36,7 +36,111 @@ Finished building target: Lab2.elf
 arm-none-eabi-size  Lab2.elf 
 arm-none-eabi-objdump -h -S Lab2.elf  > "Lab2.list"
    text	   data	    bss	    dec	    hex	filename
-  15564	     12	   1676	  17252	   4364	Lab2.elf
+  15604	     12	   1676	  17292	   438c	Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Lab2.list
+ 
+14:22:07 **** Incremental Build of configuration Debug for project Lab2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:109:9: warning: variable 'RESULT' set but not used [-Wunused-but-set-variable]
+  109 |   float RESULT = 0;
+      |         ^~~~~~
+arm-none-eabi-gcc -o "Lab2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Lab2.elf
+ 
+arm-none-eabi-size  Lab2.elf 
+arm-none-eabi-objdump -h -S Lab2.elf  > "Lab2.list"
+   text	   data	    bss	    dec	    hex	filename
+  15608	     12	   1676	  17296	   4390	Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Lab2.list
+ 
+14:24:34 **** Incremental Build of configuration Debug for project Lab2 ****
+make -j7 all 
+arm-none-eabi-size  Lab2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15608	     12	   1676	  17296	   4390	Lab2.elf
+Finished building: default.size.stdout
+ 
+14:25:42 **** Incremental Build of configuration Debug for project Lab2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:109:9: warning: variable 'RESULT' set but not used [-Wunused-but-set-variable]
+  109 |   float RESULT = 0;
+      |         ^~~~~~
+arm-none-eabi-gcc -o "Lab2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Lab2.elf
+ 
+arm-none-eabi-size  Lab2.elf 
+arm-none-eabi-objdump -h -S Lab2.elf  > "Lab2.list"
+   text	   data	    bss	    dec	    hex	filename
+  15600	     12	   1676	  17288	   4388	Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Lab2.list
+ 
+14:26:17 **** Incremental Build of configuration Debug for project Lab2 ****
+make -j7 all 
+arm-none-eabi-size  Lab2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15600	     12	   1676	  17288	   4388	Lab2.elf
+Finished building: default.size.stdout
+ 
+14:27:24 **** Incremental Build of configuration Debug for project Lab2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:109:9: warning: variable 'RESULT' set but not used [-Wunused-but-set-variable]
+  109 |   float RESULT = 0;
+      |         ^~~~~~
+arm-none-eabi-gcc -o "Lab2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Lab2.elf
+ 
+arm-none-eabi-size  Lab2.elf 
+arm-none-eabi-objdump -h -S Lab2.elf  > "Lab2.list"
+   text	   data	    bss	    dec	    hex	filename
+  15612	     12	   1676	  17300	   4394	Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Lab2.list
+ 
+14:45:45 **** Incremental Build of configuration Debug for project Lab2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:109:9: warning: variable 'RESULT' set but not used [-Wunused-but-set-variable]
+  109 |   float RESULT = 0;
+      |         ^~~~~~
+arm-none-eabi-gcc -o "Lab2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Lab2.elf
+ 
+arm-none-eabi-size  Lab2.elf 
+arm-none-eabi-objdump -h -S Lab2.elf  > "Lab2.list"
+   text	   data	    bss	    dec	    hex	filename
+  15612	     12	   1676	  17300	   4394	Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Lab2.list
+ 
+15:02:03 **** Incremental Build of configuration Debug for project Lab2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:109:9: warning: variable 'RESULT' set but not used [-Wunused-but-set-variable]
+  109 |   float RESULT = 0;
+      |         ^~~~~~
+arm-none-eabi-gcc -o "Lab2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Lab2.elf
+ 
+arm-none-eabi-size  Lab2.elf 
+arm-none-eabi-objdump -h -S Lab2.elf  > "Lab2.list"
+   text	   data	    bss	    dec	    hex	filename
+  15612	     12	   1676	  17300	   4394	Lab2.elf
 Finished building: default.size.stdout
  
 Finished building: Lab2.list

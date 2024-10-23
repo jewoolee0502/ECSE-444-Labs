@@ -34,12 +34,9 @@
 //#define ADC_BUF_SIZE 8
 //#define _VREFANALOG_VOLTAGE_ 3300 //ADC reference voltage in mV
 
-#define TS_CAL1_TEMP 30
-#define TS_CAL2_TEMP 130
-#define VREF 3.0
-#define TS_CAL1 ((uint16_t*) 0x1FFF75A8)
-#define TS_CAL2 ((uint16_t*) 0x1FFF75CA)
-#define VREFINT ((uint16_t*) ((uint32_t) 0x1FFF75AA))
+#define TS_CAL1 ((uint16_t*) 0x1FFF75A8) //30 degrees C
+#define TS_CAL2 ((uint16_t*) 0x1FFF75CA) //130 degrees C
+#define VREFINT ((uint16_t*) 0x1FFF75AA)
 
 /* USER CODE END PD */
 
@@ -59,8 +56,6 @@ ADC_HandleTypeDef hadc1;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_ADC1_Init(void);
-//void Swtich_TEMP(void);
-//void Switch_VREF(void);
 float Read_TEMP(float vref_current);
 float Read_VREF(void);
 /* USER CODE BEGIN PFP */
@@ -104,8 +99,10 @@ int main(void)
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
   char button_status = 0;
+  float temperature = 0;
   float REFERENCE_VOLTAGE = Read_VREF();
   float RESULT = 0;
+  //HAL_StatusTypeDef status;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -115,27 +112,36 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  float temp = 0;
-	  HAL_StatusTypeDef status;
-
 	  while(1) {
 		  button_status = HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin);
 
-		  if(button_status == 0) {
-			  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
-			  HAL_ADC_Start(&hadc1);
-			  status = HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+		  if(button_status == 0) { //button is pressed
+			  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET); //turn on the LED
+			  HAL_ADC_Start(&hadc1);	//ADC conversion
+			  //status = HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
 
-			  if(status == HAL_OK) {
-				  temp = Read_TEMP(REFERENCE_VOLTAGE);
-				  RESULT = temp;
+			  if(HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY) != HAL_OK) { //checks if the ADC conversion was successful
+				  Error_Handler();
 			  }
+			  else {
+				  temperature = Read_TEMP(REFERENCE_VOLTAGE);
+				  RESULT = temperature;
+			  }
+
+			  HAL_ADC_Stop(&hadc1);
 		  }
-		  else{
-			  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
+		  else { //button is not pressed
+			  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET); //turn off the LED
 			  HAL_ADC_Start(&hadc1);
-			  REFERENCE_VOLTAGE = Read_VREF();
-			  RESULT = REFERENCE_VOLTAGE;
+
+			  if(HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY) != HAL_OK) { //checks if the ADC conversion was successful
+				  Error_Handler();
+			  }
+			  else {
+				  REFERENCE_VOLTAGE = Read_VREF();
+				  RESULT = REFERENCE_VOLTAGE;
+			  }
+
 			  HAL_ADC_Stop(&hadc1);
 		  }
 	  }
@@ -144,7 +150,7 @@ int main(void)
 }
 
 float Read_TEMP(float vref_current) {
-	//Swtich_TEMP();
+	//Swtich the channel to temp
 	ADC_ChannelConfTypeDef sConfig = {0};
 
 	sConfig.Channel = ADC_CHANNEL_TEMPSENSOR;
@@ -161,6 +167,7 @@ float Read_TEMP(float vref_current) {
 
 	HAL_Delay(100);
 
+	//check for errors in ADC conversion
 	if (HAL_ADC_Start(&hadc1) != HAL_OK || HAL_ADC_PollForConversion(&hadc1, 100) != HAL_OK)
 	{
 		// ADC start error
@@ -171,37 +178,17 @@ float Read_TEMP(float vref_current) {
 	HAL_ADC_Start(&hadc1);
 	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
 
-//	// Wait for the conversion to complete
-//	if (HAL_ADC_PollForConversion(&hadc1, 100) != HAL_OK)
-//	{
-//		// ADC conversion error
-//		Error_Handler();
-//	}
-
-
+	//calculation or conversion
 	float adcValue = HAL_ADC_GetValue(&hadc1);
-	float tempValue = ((float)100) / (*TS_CAL2 - *TS_CAL1) * ((adcValue * (vref_current / 3)) - *TS_CAL1) + 30;
+	float adjustment = (adcValue * (vref_current / 3)) - *TS_CAL1; //subtract by TS_CAL1 so the curve starts at 30 (calibration)
+	float m = ((float) (130 - 30)) / (*TS_CAL2 - *TS_CAL1); //calculating the slope
+	float tempValue = m * (adjustment) + 30; //calculate temperature from raw ADC value (+30 because the curve starts from 30)
 	return tempValue;
 }
 
-//void Swtich_TEMP(void) {
-//	ADC_ChannelConfTypeDef sConfig = {0};
-//
-//	sConfig.Channel = ADC_CHANNEL_TEMPSENSOR;
-//	sConfig.Rank = ADC_REGULAR_RANK_1;
-//	sConfig.SamplingTime = ADC_SAMPLETIME_640CYCLES_5;
-//	sConfig.SingleDiff = ADC_SINGLE_ENDED;
-//	sConfig.OffsetNumber = ADC_OFFSET_NONE;
-//	sConfig.Offset = 0;
-//
-//	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
-//	{
-//		Error_Handler();
-//	}
-//}
 
 float Read_VREF(void) {
-	//Switch_VREF();
+	//Switch the channel to reference voltage
 	ADC_ChannelConfTypeDef sConfig = {0};
 
 	sConfig.Channel = ADC_CHANNEL_VREFINT;
@@ -218,40 +205,19 @@ float Read_VREF(void) {
 
 	HAL_Delay(100);
 
+	//check for errors in ADC conversion
 	if (HAL_ADC_Start(&hadc1) != HAL_OK || HAL_ADC_PollForConversion(&hadc1, 100) != HAL_OK)
 	{
 	  // ADC start error
 	  Error_Handler();
 	}
 
-//	// Wait for the conversion to complete
-//	if (HAL_ADC_PollForConversion(&hadc1, 100) != HAL_OK)
-//	{
-//	  // ADC conversion error
-//	  Error_Handler();
-//	}
-
-
-	float adcValue = HAL_ADC_GetValue(&hadc1);
-	float vrefValue = ((float) 3 * (*VREFINT)) / adcValue;
+	//calculation or conversion
+	float adcValue = HAL_ADC_GetValue(&hadc1); //get ADC value
+	float vrefValue = ((float) 3 * (*VREFINT)) / adcValue; //reference voltage calibration
 	return vrefValue;
 }
 
-//void Switch_VREF(void) {
-//	ADC_ChannelConfTypeDef sConfig = {0};
-//
-//	sConfig.Channel = ADC_CHANNEL_VREFINT;
-//	sConfig.Rank = ADC_REGULAR_RANK_1;
-//	sConfig.SamplingTime = ADC_SAMPLETIME_640CYCLES_5;
-//	sConfig.SingleDiff = ADC_SINGLE_ENDED;
-//	sConfig.OffsetNumber = ADC_OFFSET_NONE;
-//	sConfig.Offset = 0;
-//
-//	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
-//	{
-//	    Error_Handler();
-//	}
-//}
 
 
 /**
