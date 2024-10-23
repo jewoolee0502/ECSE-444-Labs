@@ -360,3 +360,4 @@
 2024-10-23 08:42:56,688 [INFO] WebApp:578 - Web application path used /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_6.12.1.202409122256/db/plugins/mcufinder/reactClient1/index.html
 2024-10-23 08:42:57,504 [INFO] WebApp:186 - Connection restablished
 2024-10-23 08:42:57,645 [INFO] UserAuth:417 - Internet connection configuration mode: 1
+2024-10-23 08:49:20,615 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
