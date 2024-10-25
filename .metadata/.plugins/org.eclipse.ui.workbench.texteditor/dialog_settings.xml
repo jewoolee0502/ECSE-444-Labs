@@ -6,8 +6,11 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="TEMP"/>
+		<item key="selection" value=""/>
 		<list key="findhistory">
+			<item value="Callback"/>
+			<item value="CallBack"/>
+			<item value="CALLBACK"/>
 			<item value="temp"/>
 		</list>
 		<list key="replacehistory">

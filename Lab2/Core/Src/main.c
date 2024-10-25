@@ -174,10 +174,6 @@ float Read_TEMP(float vref_current) {
 		Error_Handler();
 	}
 
-	//start ADC conversion to read the temperature sensor
-	HAL_ADC_Start(&hadc1);
-	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-
 	//calculation or conversion
 	float adcValue = HAL_ADC_GetValue(&hadc1);
 	float adjustment = (adcValue * (vref_current / 3)) - *TS_CAL1; //subtract by TS_CAL1 so the curve starts at 30 (calibration)
