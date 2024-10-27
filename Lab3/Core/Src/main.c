@@ -100,6 +100,10 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
+  // Start DAC channels
+  HAL_DAC_Start(&hdac1, DAC_CHANNEL_1);  // Sawtooth wave on Channel 1
+  HAL_DAC_Start(&hdac1, DAC_CHANNEL_2);  // Triangle wave on Channel 2
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -107,7 +111,10 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  sawtoothGraph();
+	  HAL_Delay(500); // Small delay for frequency control
+	  triangleGraph();
+	  HAL_Delay(500);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -372,6 +379,31 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void sawtoothGraph(void) {
+	static uint16_t saw_value = 0;  // Holds the current DAC output value
+
+	HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, saw_value);
+	saw_value += 170;               // Increment by 170 for each step (roughly 65 Hz)
+
+	if (saw_value > 4095) {         // Reset after reaching the max DAC value (12-bit max)
+		saw_value = 0;
+	}
+}
+
+void triangleGraph(void) {
+	static uint16_t triangle_value = 0;
+	static int8_t step = 170;       // Step size for 65 Hz frequency; alternates between +170 and -170
+
+	HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_2, DAC_ALIGN_12B_R, triangle_value);
+	triangle_value += step;
+
+	if (triangle_value >= 4095) {   // Reverse direction if max value is reached
+		step = -170;
+	} else if (triangle_value == 0) { // Reverse direction if min value is reached
+		step = 170;
+	}
+}
 
 /* USER CODE END 4 */
 
