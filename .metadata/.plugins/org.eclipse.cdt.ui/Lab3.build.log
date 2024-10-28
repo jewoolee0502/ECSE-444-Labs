@@ -1,41 +1,10 @@
-09:56:24 **** Incremental Build of configuration Debug for project Lab3 ****
+20:04:53 **** Incremental Build of configuration Debug for project Lab3 ****
 make -j7 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:114:11: warning: implicit declaration of function 'sawtoothGraph' [-Wimplicit-function-declaration]
-  114 |           sawtoothGraph();
-      |           ^~~~~~~~~~~~~
-../Core/Src/main.c:116:11: warning: implicit declaration of function 'triangleGraph' [-Wimplicit-function-declaration]
-  116 |           triangleGraph();
-      |           ^~~~~~~~~~~~~
-../Core/Src/main.c: At top level:
-../Core/Src/main.c:383:6: warning: conflicting types for 'sawtoothGraph'; have 'void(void)'
-  383 | void sawtoothGraph(void) {
-      |      ^~~~~~~~~~~~~
-../Core/Src/main.c:114:11: note: previous implicit declaration of 'sawtoothGraph' with type 'void(void)'
-  114 |           sawtoothGraph();
-      |           ^~~~~~~~~~~~~
-../Core/Src/main.c:394:6: warning: conflicting types for 'triangleGraph'; have 'void(void)'
-  394 | void triangleGraph(void) {
-      |      ^~~~~~~~~~~~~
-../Core/Src/main.c:116:11: note: previous implicit declaration of 'triangleGraph' with type 'void(void)'
-  116 |           triangleGraph();
-      |           ^~~~~~~~~~~~~
-../Core/Src/main.c: In function 'triangleGraph':
-../Core/Src/main.c:402:24: warning: overflow in conversion from 'int' to 'int8_t' {aka 'signed char'} changes value from '-170' to '86' [-Woverflow]
-  402 |                 step = -170;
-      |                        ^
-arm-none-eabi-gcc -o "Lab3.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab3.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Lab3.elf
- 
 arm-none-eabi-size  Lab3.elf 
-arm-none-eabi-objdump -h -S Lab3.elf  > "Lab3.list"
    text	   data	    bss	    dec	    hex	filename
-  18388	     16	   1872	  20276	   4f34	Lab3.elf
+  22976	     12	   2060	  25048	   61d8	Lab3.elf
 Finished building: default.size.stdout
  
-Finished building: Lab3.list
- 
 
-09:56:26 Build Finished. 0 errors, 5 warnings. (took 1s.250ms)
+20:04:53 Build Finished. 0 errors, 0 warnings. (took 275ms)
 

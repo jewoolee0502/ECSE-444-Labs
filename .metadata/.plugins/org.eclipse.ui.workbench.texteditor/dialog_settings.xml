@@ -6,8 +6,10 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value=""/>
+		<item key="selection" value="triangle_data"/>
 		<list key="findhistory">
+			<item value="triangle_data"/>
+			<item value="triangle"/>
 			<item value="Callback"/>
 			<item value="CallBack"/>
 			<item value="CALLBACK"/>

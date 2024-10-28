@@ -21,7 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "arm_math.h"
+#define  ARM_MATH_CM
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -31,6 +32,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define WAVEFORM_PERIOD 15
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -47,6 +49,23 @@ DMA_HandleTypeDef hdma_dac1_ch1;
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
+
+//int triangleArray[15] = {0, 530, 1060, 1590, 2120, 2650, 3180, 3710, 3180, 2650, 2120, 1590, 1060, 530, 0};
+//int sawtoothArray[15] = { 0,  270,  540,  810, 1080, 1350, 1620, 1890, 2160, 2430, 2700, 2970, 3240, 3510,3780};
+
+//uint16_t sawtooth_data;
+//uint16_t triangle_data;
+
+uint8_t s=0;
+HAL_StatusTypeDef STATUS;
+
+
+uint32_t saw1;
+uint32_t triangle1;
+uint32_t sinex;
+uint32_t saw[WAVEFORM_PERIOD];
+uint32_t triangle[WAVEFORM_PERIOD];
+uint32_t sine[WAVEFORM_PERIOD];
 
 /* USER CODE END PV */
 
@@ -99,10 +118,21 @@ int main(void)
   MX_DAC1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+  int i=0;
 
-  // Start DAC channels
-  HAL_DAC_Start(&hdac1, DAC_CHANNEL_1);  // Sawtooth wave on Channel 1
-  HAL_DAC_Start(&hdac1, DAC_CHANNEL_2);  // Triangle wave on Channel 2
+  HAL_DAC_Start(&hdac1, DAC_CHANNEL_1);
+  HAL_DAC_Start(&hdac1, DAC_CHANNEL_2);
+
+  generate_waveforms();
+
+  STATUS = HAL_DAC_Start(&hdac1, DAC_CHANNEL_1);
+  if(STATUS!=HAL_OK){
+	  Error_Handler();
+  }
+  STATUS = HAL_DAC_Start(&hdac1, DAC_CHANNEL_2);
+  if(STATUS!=HAL_OK){
+	  Error_Handler();
+  }
 
   /* USER CODE END 2 */
 
@@ -110,12 +140,41 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
     /* USER CODE END WHILE */
-	  sawtoothGraph();
-	  HAL_Delay(500); // Small delay for frequency control
-	  triangleGraph();
-	  HAL_Delay(500);
+
     /* USER CODE BEGIN 3 */
+//	  sawtooth_data = sawtoothArray[i];
+//	  triangle_data = triangleArray[i];
+//	  sine[i] = (uint32_t)((arm_sin_f32(M_PI*i/7)+1)*1365);
+//	  arm_sin_f32();
+//
+//
+//	  // To test sawtooth signal, simply change the data variable name in the
+//	  // HAL_DAC_SetValue function!
+//	  HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, triangle_data);
+//	  HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_2, DAC_ALIGN_12B_R, sawtooth_data);
+//	  HAL_Delay(200);
+//	  // 15 samples
+//	  i++;
+//	  if (i >= 15) {
+//		  i = 0; //after 15 samples, reset the loop
+//	  }
+
+	  for(uint32_t i=0; i<WAVEFORM_PERIOD; i++){
+		  saw1 = saw[i];
+		  triangle1 = triangle[i];
+		  sinex = sine[i];
+		  STATUS = HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_2, DAC_ALIGN_12B_R, triangle[i]);
+		  if(STATUS!=HAL_OK){
+			  Error_Handler();
+		  }
+		  STATUS = HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, sine[i]);
+		  if(STATUS!=HAL_OK){
+			  Error_Handler();
+		  }
+		  HAL_Delay(500);
+	  }
   }
   /* USER CODE END 3 */
 }
@@ -313,7 +372,7 @@ static void MX_TIM2_Init(void)
   {
     Error_Handler();
   }
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
   if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
   {
@@ -379,29 +438,38 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
-void sawtoothGraph(void) {
-	static uint16_t saw_value = 0;  // Holds the current DAC output value
-
-	HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, saw_value);
-	saw_value += 170;               // Increment by 170 for each step (roughly 65 Hz)
-
-	if (saw_value > 4095) {         // Reset after reaching the max DAC value (12-bit max)
-		saw_value = 0;
+void triangleGraph(void) {
+	int triangleWave[15];
+	int sample = 0;
+	for(int i=0; i<15; i++) {
+		triangleWave[i] = sample;
+		sample += 270*2;
 	}
 }
 
-void triangleGraph(void) {
-	static uint16_t triangle_value = 0;
-	static int8_t step = 170;       // Step size for 65 Hz frequency; alternates between +170 and -170
+void sawtoothGraph(void) {
+	int sawtoothWave[15];
+	int sample = 0;
+	for(int i=0; i<15; i++) {
+		sawtoothWave[i] = sample;
+		sample += 270;
+	}
 
-	HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_2, DAC_ALIGN_12B_R, triangle_value);
-	triangle_value += step;
+}
 
-	if (triangle_value >= 4095) {   // Reverse direction if max value is reached
-		step = -170;
-	} else if (triangle_value == 0) { // Reverse direction if min value is reached
-		step = 170;
+void generate_waveforms(void) {
+	for (int i = 0; i < WAVEFORM_PERIOD; ++i) {
+		// Generate saw
+		saw[i] = (i*2730)/(WAVEFORM_PERIOD-1);
+		//Generate sine
+		sine[i] = (uint32_t)((arm_sin_f32(M_PI*i/7)+1)*1365); //pi*i/7: scale input to 0-2*pi range, scale to 12-bit resolution: 4095/2 -> 2 peak value
+
+		// Generate triangle
+		if (i <= WAVEFORM_PERIOD / 2) {
+			triangle[i] = (2*i*2730)/(WAVEFORM_PERIOD-1);
+		} else {
+			triangle[i] = ((2*(WAVEFORM_PERIOD-1-i))*2730)/(WAVEFORM_PERIOD-1);
+		}
 	}
 }
 
