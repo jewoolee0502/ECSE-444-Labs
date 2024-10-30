@@ -13,5 +13,3 @@ Lab3:
   - Part 1:
      - Generate triangle wave, sawtooth wave, and sine wave to see it on SWV Data Trace Timeline Graph on STM32CubeIDE.
      - Use 'HAL_DAC_SetValue()' to hear the wave sounds from the speaker attached on the board (sine wave should make the clearest sound).
-  - Part 2:
-     - 
