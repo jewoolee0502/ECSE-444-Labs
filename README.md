@@ -10,8 +10,8 @@ Lab2:
   - Created helper functions like READ_TEMP() and READ_VREF() that switches the board to read temperature and read the temperature using ADC values and manually doing the conversion, and vice versa for reference Voltage.
 
 Lab3:
-  Part 1:
-    - Generate triangle wave, sawtooth wave, and sine wave to see it on SWV Data Trace Timeline Graph on STM32CubeIDE.
-    - Use 'HAL_DAC_SetValue()' to hear the wave sounds from the speaker attached on the board (sine wave should make the clearest sound).
-  Part 2:
-    - 
+  - Part 1:
+     - Generate triangle wave, sawtooth wave, and sine wave to see it on SWV Data Trace Timeline Graph on STM32CubeIDE.
+     - Use 'HAL_DAC_SetValue()' to hear the wave sounds from the speaker attached on the board (sine wave should make the clearest sound).
+  - Part 2:
+     - 
