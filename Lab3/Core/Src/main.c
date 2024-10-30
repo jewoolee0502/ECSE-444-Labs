@@ -421,12 +421,13 @@ void sawtoothGraph(void) {
 
 void triangleGraph(void) {
 	int step = 270*2;
+	int maxValue = 270*2*7;
 	for(int i=0; i<PERIOD; i++) {
 		if(i <= 7) {
 			triangle[i] = i*step;
 		}
 		else {
-			triangle[i] = 3780-((i-7)*step);
+			triangle[i] = maxValue-((i-7)*step);
 		}
 	}
 
