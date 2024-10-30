@@ -58,7 +58,7 @@ uint16_t triangleWave;
 uint16_t sineWave;
 uint16_t sawtooth[PERIOD];
 uint16_t triangle[PERIOD];
-uint16_t sinex[PERIOD];
+uint16_t sine[PERIOD];
 
 /* USER CODE END PV */
 
@@ -111,11 +111,7 @@ int main(void)
   MX_DAC1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-//
-//  HAL_DAC_Start(&hdac1, DAC_CHANNEL_1);
-//  HAL_DAC_Start(&hdac1, DAC_CHANNEL_2);
 
-  //generate_waveforms();
   sawtoothGraph();
   triangleGraph();
   sineGraph();
@@ -140,12 +136,13 @@ int main(void)
 	  for(uint32_t i=0; i<PERIOD; i++){
 		  sawtoothWave = sawtooth[i];
 		  triangleWave = triangle[i];
-		  sineWave = sinex[i];
+		  sineWave = sine[i];
 		  if(HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, sineWave) != HAL_OK ||
-				  HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_2, DAC_ALIGN_12B_R, sawtoothWave) != HAL_OK){
+				  HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_2, DAC_ALIGN_12B_R, triangleWave) != HAL_OK){
 			  Error_Handler();
 		  }
-		  HAL_Delay(500);
+		  HAL_Delay(PERIOD/15); //to hear the sound on the speaker
+		  //HAL_Delay(500); //to visualize the graph
 	  }
 
   }
@@ -414,21 +411,6 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-//void generate_waveforms(void) {
-//	for (int i = 0; i < PERIOD; ++i) {
-//		// Generate saw
-//		sawtooth[i] = (i*2730)/(PERIOD-1);
-//		//Generate sine
-//		sine[i] = (uint32_t)((arm_sin_f32(M_PI*i/7)+1)*1365); //pi*i/7: scale input to 0-2*pi range, scale to 12-bit resolution: 4095/2 -> 2 peak value
-//
-//		// Generate triangle
-//		if (i <= PERIOD / 2) {
-//			triangle[i] = (2*i*2730)/(PERIOD-1);
-//		} else {
-//			triangle[i] = ((2*(PERIOD-1-i))*2730)/(PERIOD-1);
-//		}
-//	}
-//}
 
 void sawtoothGraph(void) {
 	int step = 270;
@@ -452,8 +434,7 @@ void triangleGraph(void) {
 
 void sineGraph(void) {
 	for(int i = 0; i<PERIOD; i++){
-//		sine[i] = (uint16_t)((arm_sin_f32((2*M_PI*i)/15)+1)*1890);
-		sinex[i] = (uint32_t)((arm_sin_f32(M_PI*i/7)+1)*1365);
+		sine[i] = (uint16_t)((arm_sin_f32((2*M_PI*i)/15)+1)*1890);
 	}
 }
 
