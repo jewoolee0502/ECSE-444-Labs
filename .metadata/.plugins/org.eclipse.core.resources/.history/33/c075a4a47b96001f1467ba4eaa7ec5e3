@@ -137,12 +137,10 @@ int main(void)
 		  sawtoothWave = sawtooth[i];
 		  triangleWave = triangle[i];
 		  sineWave = sine[i];
-
 		  if(HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, sineWave) != HAL_OK ||
 				  HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_2, DAC_ALIGN_12B_R, triangleWave) != HAL_OK){
 			  Error_Handler();
 		  }
-
 		  HAL_Delay(PERIOD/15); //to hear the sound on the speaker
 		  //HAL_Delay(500); //to visualize the graph
 	  }
