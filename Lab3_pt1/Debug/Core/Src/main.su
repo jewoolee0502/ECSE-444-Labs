@@ -1,0 +1,11 @@
+../Core/Src/main.c:85:5:main	16	static
+../Core/Src/main.c:159:6:SystemClock_Config	96	static
+../Core/Src/main.c:210:13:MX_ADC1_Init	32	static
+../Core/Src/main.c:268:13:MX_DAC1_Init	48	static
+../Core/Src/main.c:319:13:MX_TIM2_Init	40	static
+../Core/Src/main.c:362:13:MX_DMA_Init	16	static
+../Core/Src/main.c:381:13:MX_GPIO_Init	40	static
+../Core/Src/main.c:418:6:sawtoothGraph	16	static
+../Core/Src/main.c:425:6:triangleGraph	24	static
+../Core/Src/main.c:439:6:sineGraph	16	static
+../Core/Src/main.c:451:6:Error_Handler	4	static,ignoring_inline_asm

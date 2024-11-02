@@ -1,0 +1,46 @@
+17:23:59 **** Incremental Build of configuration Debug for project Lab3_pt1 ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:115:3: warning: implicit declaration of function 'sawtoothGraph' [-Wimplicit-function-declaration]
+  115 |   sawtoothGraph();
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:116:3: warning: implicit declaration of function 'triangleGraph' [-Wimplicit-function-declaration]
+  116 |   triangleGraph();
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:117:3: warning: implicit declaration of function 'sineGraph' [-Wimplicit-function-declaration]
+  117 |   sineGraph();
+      |   ^~~~~~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:418:6: warning: conflicting types for 'sawtoothGraph'; have 'void(void)'
+  418 | void sawtoothGraph(void) {
+      |      ^~~~~~~~~~~~~
+../Core/Src/main.c:115:3: note: previous implicit declaration of 'sawtoothGraph' with type 'void(void)'
+  115 |   sawtoothGraph();
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:425:6: warning: conflicting types for 'triangleGraph'; have 'void(void)'
+  425 | void triangleGraph(void) {
+      |      ^~~~~~~~~~~~~
+../Core/Src/main.c:116:3: note: previous implicit declaration of 'triangleGraph' with type 'void(void)'
+  116 |   triangleGraph();
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:439:6: warning: conflicting types for 'sineGraph'; have 'void(void)'
+  439 | void sineGraph(void) {
+      |      ^~~~~~~~~
+../Core/Src/main.c:117:3: note: previous implicit declaration of 'sineGraph' with type 'void(void)'
+  117 |   sineGraph();
+      |   ^~~~~~~~~
+arm-none-eabi-gcc -o "Lab3_pt1.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_pt1/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab3_pt1.map" -Wl,--gc-sections -static -L"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_pt1/Core/Lib" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Lab3_pt1.elf
+ 
+arm-none-eabi-size  Lab3_pt1.elf 
+arm-none-eabi-objdump -h -S Lab3_pt1.elf  > "Lab3_pt1.list"
+   text	   data	    bss	    dec	    hex	filename
+  23000	     12	   1972	  24984	   6198	Lab3_pt1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Lab3_pt1.list
+ 
+
+17:24:00 Build Finished. 0 errors, 6 warnings. (took 994ms)
+
