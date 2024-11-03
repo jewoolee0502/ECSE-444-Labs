@@ -1,4 +1,4 @@
-18:07:44 **** Incremental Build of configuration Debug for project Lab3_final ****
+15:47:33 **** Incremental Build of configuration Debug for project Lab3_final ****
 make -j7 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc -o "Lab3_final.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_final/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab3_final.map" -Wl,--gc-sections -static -L"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_final/Core/Lib" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -7,26 +7,12 @@ Finished building target: Lab3_final.elf
 arm-none-eabi-size  Lab3_final.elf 
 arm-none-eabi-objdump -h -S Lab3_final.elf  > "Lab3_final.list"
    text	   data	    bss	    dec	    hex	filename
-  17992	     16	   1888	  19896	   4db8	Lab3_final.elf
+  18480	     16	   1880	  20376	   4f98	Lab3_final.elf
 Finished building: default.size.stdout
  
 Finished building: Lab3_final.list
  
-18:08:09 **** Incremental Build of configuration Debug for project Lab3_final ****
-make -j7 all 
-arm-none-eabi-size  Lab3_final.elf 
-   text	   data	    bss	    dec	    hex	filename
-  17992	     16	   1888	  19896	   4db8	Lab3_final.elf
-Finished building: default.size.stdout
- 
-18:09:17 **** Incremental Build of configuration Debug for project Lab3_final ****
-make -j7 all 
-arm-none-eabi-size  Lab3_final.elf 
-   text	   data	    bss	    dec	    hex	filename
-  17992	     16	   1888	  19896	   4db8	Lab3_final.elf
-Finished building: default.size.stdout
- 
-18:10:27 **** Incremental Build of configuration Debug for project Lab3_final ****
+15:48:58 **** Build of configuration Debug for project Lab3_final ****
 make -j7 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc -o "Lab3_final.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_final/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab3_final.map" -Wl,--gc-sections -static -L"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_final/Core/Lib" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -35,7 +21,7 @@ Finished building target: Lab3_final.elf
 arm-none-eabi-size  Lab3_final.elf 
 arm-none-eabi-objdump -h -S Lab3_final.elf  > "Lab3_final.list"
    text	   data	    bss	    dec	    hex	filename
-  17992	     16	   1888	  19896	   4db8	Lab3_final.elf
+  18320	     16	   1872	  20208	   4ef0	Lab3_final.elf
 Finished building: default.size.stdout
  
 Finished building: Lab3_final.list

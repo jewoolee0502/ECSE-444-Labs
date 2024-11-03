@@ -32,7 +32,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define PERIOD 15
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -49,13 +49,13 @@ TIM_HandleTypeDef htim2;
 /* USER CODE BEGIN PV */
 HAL_StatusTypeDef STATUS;
 
-uint32_t sinex;
-uint8_t s=0;
+uint8_t sineWave;
+uint8_t steps = 0;
 
-uint8_t sinec6[43]; //c6-> 1046.5Hz and thus 44.1kHz/1046.5Hz=43
-uint8_t sineg6[29]; //g6-> 1567.98Hz and thus 44.1kHz/1567.98Hz=29
-uint8_t sinee6[34]; //e6-> 1318.5Hz and thus 44.1kHz/1318.5Hz=34
-uint8_t *current_tone = sinec6;
+uint8_t sine_C6[43]; //c6-> 1046.5Hz and thus 44.1kHz/1046.5Hz=43
+uint8_t sine_G6[29]; //g6-> 1567.98Hz and thus 44.1kHz/1567.98Hz=29
+uint8_t sine_E6[34]; //e6-> 1318.5Hz and thus 44.1kHz/1318.5Hz=34
+uint8_t *currentNote = sine_C6;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -67,7 +67,7 @@ static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
-void generate_sine(void);
+void generate_sineWave(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -109,14 +109,18 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
-  generate_sine();
+  generate_sineWave();
 
-  STATUS = HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)current_tone, 43, DAC_ALIGN_8B_R);
-  if(STATUS!=HAL_OK){
+  //Multiple tone audio generation
+  if(HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)currentNote, 43, DAC_ALIGN_8B_R) != HAL_OK
+		  || HAL_TIM_Base_Start_IT(&htim2) != HAL_OK) {
 	  Error_Handler();
   }
 
-  HAL_TIM_Base_Start_IT(&htim2);
+  //timer interrupt
+//  if(HAL_DAC_Start(&hdac1, DAC_CHANNEL_1) != HAL_OK || HAL_TIM_Base_Start_IT(&htim2) != HAL_OK) {
+//	  Error_Handler();
+//  }
 
   /* USER CODE END 2 */
 
@@ -329,50 +333,49 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
-void generate_sine(void) {
+void generate_sineWave(void) {
 
 	// C6
-	for (int j = 0; j < 43; j++){
-		sinec6[j] = (uint8_t) ((arm_sin_f32((2*M_PI)/43*j)+1)*(170.0f / 2.0f)) ;
+	for(int i = 0; i < 43; i++) {
+		sine_C6[i] = (uint8_t) ((arm_sin_f32((2*M_PI*i)/43) + 1)*(170.0f / 2.0f)) ;
 	}
 	// G6
-	for (int j=0; j < 29; j++) {
-		sineg6[j] = (uint32_t) ((arm_sin_f32((2*M_PI)/29*j)+1)*(170.0f / 2.0f)) ;
+	for(int i=0; i < 29; i++) {
+		sine_G6[i] = (uint8_t) ((arm_sin_f32((2*M_PI*i)/29) + 1)*(170.0f / 2.0f)) ;
 	}
 	// E6
-	for (int j = 0; j < 34; j++){
-		sinee6[j] = (uint8_t) ((arm_sin_f32((2*M_PI)/34*j)+1)*(170.0f / 2.0f)) ;
+	for(int i = 0; i < 34; i++) {
+		sine_E6[i] = (uint8_t) ((arm_sin_f32((2*M_PI*i)/34) + 1)*(170.0f / 2.0f)) ;
 	}
 }
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-	if (htim->Instance == TIM2) {
-		HAL_IncTick();
-		sinex = sineg6[s];
-		STATUS = HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, sineg6[s++]);
-		if(STATUS != HAL_OK){
-			Error_Handler();
-		}
-		if(s==29){
-			s=0;
-		}
-	}
-}
+//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+//{
+//	if (htim->Instance == TIM2) {
+//		sineWave = sine_C6[steps];
+//		if(HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_8B_R, sineWave) != HAL_OK){
+//			Error_Handler();
+//		}
+//		steps++;
+//		if(steps > 43) { //43 because the note playing is C6
+//			steps = 0; //reset to 0
+//		}
+//	}
+//}
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 	HAL_DAC_Stop_DMA(&hdac1, DAC_CHANNEL_1);
 
-	if(current_tone==sinec6){
-		current_tone=sinee6;
-		HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)current_tone, 34, DAC_ALIGN_8B_R);
-	} else if(current_tone==sinee6){
-		current_tone=sineg6;
-		HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)current_tone, 29, DAC_ALIGN_8B_R);
+	if(currentNote == sine_C6){
+		currentNote = sine_E6;
+		HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)currentNote, 34, DAC_ALIGN_8B_R);
+	} else if(currentNote == sine_E6){
+		currentNote = sine_G6;
+		HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)currentNote, 29, DAC_ALIGN_8B_R);
 	}else {
-		current_tone=sinec6;
-		HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)current_tone, 43, DAC_ALIGN_8B_R);
+		currentNote = sine_C6;
+		HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)currentNote, 43, DAC_ALIGN_8B_R);
 	}
 
 
