@@ -110,15 +110,15 @@ int main(void)
   generate_sineWave();
 
   //Multiple tone audio generation
-  if(HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)currentNote, 43, DAC_ALIGN_8B_R) != HAL_OK
-		  || HAL_TIM_Base_Start_IT(&htim2) != HAL_OK) {
-	  Error_Handler();
-  }
-
-//  //timer interrupt
-//  if(HAL_DAC_Start(&hdac1, DAC_CHANNEL_1) != HAL_OK || HAL_TIM_Base_Start_IT(&htim2) != HAL_OK) {
+//  if(HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)currentNote, 43, DAC_ALIGN_8B_R) != HAL_OK
+//		  || HAL_TIM_Base_Start_IT(&htim2) != HAL_OK) {
 //	  Error_Handler();
 //  }
+
+  //timer interrupt
+  if(HAL_DAC_Start(&hdac1, DAC_CHANNEL_1) != HAL_OK || HAL_TIM_Base_Start_IT(&htim2) != HAL_OK) {
+	  Error_Handler();
+  }
 
   /* USER CODE END 2 */
 
@@ -347,37 +347,37 @@ void generate_sineWave(void) {
 	}
 }
 
-//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-//{
-//	if (htim->Instance == TIM2) {
-//		sineWave = sine_C6[steps];
-//		if(HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_8B_R, sineWave) != HAL_OK){
-//			Error_Handler();
-//		}
-//		steps++;
-//		if(steps > 43) { //43 because the note playing is C6
-//			steps = 0; //reset to 0
-//		}
-//	}
-//}
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-	HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-	HAL_DAC_Stop_DMA(&hdac1, DAC_CHANNEL_1);
-
-	if(currentNote == sine_C6){
-		currentNote = sine_E6;
-		HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)currentNote, 34, DAC_ALIGN_8B_R);
-	} else if(currentNote == sine_E6){
-		currentNote = sine_G6;
-		HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)currentNote, 29, DAC_ALIGN_8B_R);
-	}else {
-		currentNote = sine_C6;
-		HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)currentNote, 43, DAC_ALIGN_8B_R);
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if (htim->Instance == TIM2) {
+		sineWave = sine_C6[steps];
+		if(HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_8B_R, sineWave) != HAL_OK){
+			Error_Handler();
+		}
+		steps++;
+		if(steps > 43) { //43 because the note playing is C6
+			steps = 0; //reset to 0
+		}
 	}
-
-
 }
+
+//void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+//	HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+//	HAL_DAC_Stop_DMA(&hdac1, DAC_CHANNEL_1);
+//
+//	if(currentNote == sine_C6){
+//		currentNote = sine_E6;
+//		HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)currentNote, 34, DAC_ALIGN_8B_R);
+//	} else if(currentNote == sine_E6){
+//		currentNote = sine_G6;
+//		HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)currentNote, 29, DAC_ALIGN_8B_R);
+//	}else {
+//		currentNote = sine_C6;
+//		HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)currentNote, 43, DAC_ALIGN_8B_R);
+//	}
+//
+//
+//}
 
 /* USER CODE END 4 */
 
