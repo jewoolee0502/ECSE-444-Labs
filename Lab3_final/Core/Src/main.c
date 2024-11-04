@@ -47,8 +47,6 @@ DMA_HandleTypeDef hdma_dac1_ch1;
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
-HAL_StatusTypeDef STATUS;
-
 uint8_t sineWave;
 uint8_t steps = 0;
 
@@ -337,15 +335,15 @@ void generate_sineWave(void) {
 
 	// C6
 	for(int i = 0; i < 43; i++) {
-		sine_C6[i] = (uint8_t) ((arm_sin_f32((2*M_PI*i)/43) + 1)*(170.0f / 2.0f)) ;
+		sine_C6[i] = (uint8_t) ((arm_sin_f32((2*M_PI*i)/43) + 1)*(170.0f / 2.0f)); //170/2=85 (multiply 85 because that is 66% of 255)
 	}
 	// G6
 	for(int i=0; i < 29; i++) {
-		sine_G6[i] = (uint8_t) ((arm_sin_f32((2*M_PI*i)/29) + 1)*(170.0f / 2.0f)) ;
+		sine_G6[i] = (uint8_t) ((arm_sin_f32((2*M_PI*i)/29) + 1)*(170.0f / 2.0f));
 	}
 	// E6
 	for(int i = 0; i < 34; i++) {
-		sine_E6[i] = (uint8_t) ((arm_sin_f32((2*M_PI*i)/34) + 1)*(170.0f / 2.0f)) ;
+		sine_E6[i] = (uint8_t) ((arm_sin_f32((2*M_PI*i)/34) + 1)*(170.0f / 2.0f));
 	}
 }
 
