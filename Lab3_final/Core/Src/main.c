@@ -115,7 +115,7 @@ int main(void)
 	  Error_Handler();
   }
 
-  //timer interrupt
+//  //timer interrupt
 //  if(HAL_DAC_Start(&hdac1, DAC_CHANNEL_1) != HAL_OK || HAL_TIM_Base_Start_IT(&htim2) != HAL_OK) {
 //	  Error_Handler();
 //  }
