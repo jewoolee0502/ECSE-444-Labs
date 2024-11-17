@@ -1,77 +1,50 @@
-15:47:33 **** Incremental Build of configuration Debug for project Lab3_final ****
+15:52:09 **** Incremental Build of configuration Debug for project Lab4 ****
 make -j7 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "Lab3_final.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_final/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab3_final.map" -Wl,--gc-sections -static -L"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_final/Core/Lib" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Lab3_final.elf
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L475xx -c -I../Core/Inc -I"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab4/Drivers/Components" -I"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab4/Drivers/Components/lis3mdl" -I"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab4/Drivers/Components/Common" -I"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab4/Drivers/Components/hts221" -I"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab4/Drivers/Components/lsm6dsl" -I"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab4/Drivers/Components/lps22hb" -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'StartTXTask':
+../Core/Src/main.c:453:41: warning: format '%f' expects argument of type 'double', but argument 3 has type 'int' [-Wformat=]
+  453 |         sprintf(buffer_gyro, "Gyro X:%.2f Y:%.2f Z:%.2f", gyro[0], gyro[1], gyro[2]);
+      |                                      ~~~^                 ~~~~~~~
+      |                                         |                     |
+      |                                         double                int
+      |                                      %.2d
+../Core/Src/main.c:453:48: warning: format '%f' expects argument of type 'double', but argument 4 has type 'int' [-Wformat=]
+  453 |         sprintf(buffer_gyro, "Gyro X:%.2f Y:%.2f Z:%.2f", gyro[0], gyro[1], gyro[2]);
+      |                                             ~~~^                   ~~~~~~~
+      |                                                |                       |
+      |                                                double                  int
+      |                                             %.2d
+../Core/Src/main.c:453:55: warning: format '%f' expects argument of type 'double', but argument 5 has type 'int' [-Wformat=]
+  453 |         sprintf(buffer_gyro, "Gyro X:%.2f Y:%.2f Z:%.2f", gyro[0], gyro[1], gyro[2]);
+      |                                                    ~~~^                     ~~~~~~~
+      |                                                       |                         |
+      |                                                       double                    int
+      |                                                    %.2d
+../Core/Src/main.c: In function 'StartSensorTask':
+../Core/Src/main.c:489:25: warning: passing argument 1 of 'BSP_GYRO_GetXYZ' from incompatible pointer type [-Wincompatible-pointer-types]
+  489 |         BSP_GYRO_GetXYZ(gyro);
+      |                         ^~~~
+      |                         |
+      |                         int *
+In file included from ../Core/Src/main.c:31:
+../Core/Inc/stm32l4s5i_iot01_gyro.h:66:29: note: expected 'float *' but argument is of type 'int *'
+   66 | void BSP_GYRO_GetXYZ(float* pfData);
+      |                      ~~~~~~~^~~~~~
+arm-none-eabi-gcc -o "Lab4.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab4/STM32L475VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab4.map" -Wl,--gc-sections -static -L"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab4/Core/Lib" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Lab4.elf
  
-arm-none-eabi-size  Lab3_final.elf 
-arm-none-eabi-objdump -h -S Lab3_final.elf  > "Lab3_final.list"
+arm-none-eabi-size  Lab4.elf 
+arm-none-eabi-objdump -h -S Lab4.elf  > "Lab4.list"
    text	   data	    bss	    dec	    hex	filename
-  18480	     16	   1880	  20376	   4f98	Lab3_final.elf
+  30600	    228	   6532	  37360	   91f0	Lab4.elf
 Finished building: default.size.stdout
  
-Finished building: Lab3_final.list
+Finished building: Lab4.list
  
-15:48:58 **** Build of configuration Debug for project Lab3_final ****
+15:52:13 **** Incremental Build of configuration Debug for project Lab4 ****
 make -j7 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "Lab3_final.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_final/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab3_final.map" -Wl,--gc-sections -static -L"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_final/Core/Lib" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Lab3_final.elf
- 
-arm-none-eabi-size  Lab3_final.elf 
-arm-none-eabi-objdump -h -S Lab3_final.elf  > "Lab3_final.list"
+arm-none-eabi-size  Lab4.elf 
    text	   data	    bss	    dec	    hex	filename
-  18320	     16	   1872	  20208	   4ef0	Lab3_final.elf
+  30600	    228	   6532	  37360	   91f0	Lab4.elf
 Finished building: default.size.stdout
- 
-Finished building: Lab3_final.list
- 
-13:46:09 **** Build of configuration Debug for project Lab3_final ****
-make -j7 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "Lab3_final.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_final/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab3_final.map" -Wl,--gc-sections -static -L"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_final/Core/Lib" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Lab3_final.elf
- 
-arm-none-eabi-size  Lab3_final.elf 
-arm-none-eabi-objdump -h -S Lab3_final.elf  > "Lab3_final.list"
-   text	   data	    bss	    dec	    hex	filename
-  17008	     12	   1876	  18896	   49d0	Lab3_final.elf
-Finished building: default.size.stdout
- 
-Finished building: Lab3_final.list
- 
-13:47:06 **** Incremental Build of configuration Debug for project Lab3_final ****
-make -j7 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "Lab3_final.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_final/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab3_final.map" -Wl,--gc-sections -static -L"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_final/Core/Lib" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Lab3_final.elf
- 
-arm-none-eabi-size  Lab3_final.elf 
-arm-none-eabi-objdump -h -S Lab3_final.elf  > "Lab3_final.list"
-   text	   data	    bss	    dec	    hex	filename
-  18320	     16	   1872	  20208	   4ef0	Lab3_final.elf
-Finished building: default.size.stdout
- 
-Finished building: Lab3_final.list
- 
-13:55:32 **** Incremental Build of configuration Debug for project Lab3_final ****
-make -j7 all 
-arm-none-eabi-size  Lab3_final.elf 
-   text	   data	    bss	    dec	    hex	filename
-  18320	     16	   1872	  20208	   4ef0	Lab3_final.elf
-Finished building: default.size.stdout
- 
-13:56:24 **** Incremental Build of configuration Debug for project Lab3_final ****
-make -j7 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "Lab3_final.elf" @"objects.list"  -larm_cortexM4lf_math -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_final/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab3_final.map" -Wl,--gc-sections -static -L"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab3_final/Core/Lib" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Lab3_final.elf
- 
-arm-none-eabi-size  Lab3_final.elf 
-arm-none-eabi-objdump -h -S Lab3_final.elf  > "Lab3_final.list"
-   text	   data	    bss	    dec	    hex	filename
-  17008	     12	   1876	  18896	   49d0	Lab3_final.elf
-Finished building: default.size.stdout
- 
-Finished building: Lab3_final.list
  

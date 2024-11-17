@@ -22,7 +22,16 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
+#include <stdlib.h>
 
+#include "arm_math.h"
+#define  ARM_MATH_CM4
+
+#include "stm32l4s5i_iot01_gyro.h"
+#include "stm32l4s5i_iot01_magneto.h"
+#include "stm32l4s5i_iot01_psensor.h"
+#include "stm32l4s5i_iot01_tsensor.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,7 +50,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-I2C_HandleTypeDef hi2c3;
+I2C_HandleTypeDef hi2c2;
 
 UART_HandleTypeDef huart1;
 
@@ -56,12 +65,14 @@ osThreadId readSensorHandle;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_I2C3_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_I2C2_Init(void);
 void StartDefaultTask(void const * argument);
 void StartButtonTask(void const * argument);
 void StartTXTask(void const * argument);
 void StartSensorTask(void const * argument);
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
 
 /* USER CODE BEGIN PFP */
 
@@ -69,6 +80,19 @@ void StartSensorTask(void const * argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+uint16_t temp;
+uint16_t pressure;
+int16_t  magneto[3];
+int  gyro[] = {0,0,0};
+char buffer_temp[20];
+char buffer_pressure[20];
+char buffer_magneto[50];
+char buffer_gyro[80];
+//char buffer[550];
+uint8_t status_g;
+int counter = 0;
+HAL_StatusTypeDef status;
 
 /* USER CODE END 0 */
 
@@ -101,9 +125,14 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_I2C3_Init();
   MX_USART1_UART_Init();
+  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
+
+  status_g = BSP_GYRO_Init();
+  BSP_MAGNETO_Init();
+  BSP_TSENSOR_Init();
+  BSP_PSENSOR_Init();
 
   /* USER CODE END 2 */
 
@@ -151,11 +180,37 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+//  uint32_t lastTick = 0; // Store the last tick count
+//  uint32_t currentTick = 0; // Store the current tick count
+
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+//	  currentTick = HAL_GetTick();
+//
+//	  if((currentTick - lastTick) >= 100){ // Check if 100ms have passed
+//		  // Sensor readings
+//		  BSP_MAGNETO_GetXYZ(magneto);
+//		  pressure = BSP_PSENSOR_ReadPressure();
+//		  temp = BSP_TSENSOR_ReadTemp();
+//		  BSP_GYRO_GetXYZ(gyro);
+//		  sprintf(buffer_temp, "Temp: %u", temp);
+//		  sprintf(buffer_pressure, "Pressure: %u", pressure);
+//		  sprintf(buffer_magneto, "Magneto X:%d Y:%d Z:%d", magneto[0], magneto[1], magneto[2]);
+//		  sprintf(buffer_gyro, "Gyro X:%.2f Y:%.2f Z:%.2f", gyro[0], gyro[1], gyro[2]);
+//		  snprintf(buffer, sizeof(buffer), "%s %s %s %s\n", buffer_temp, buffer_pressure, buffer_magneto, buffer_gyro);
+//		  status = HAL_UART_Transmit(&huart1, (uint8_t *)buffer, sizeof(buffer), 1000);
+//
+//
+//		  lastTick = currentTick; // Update the last tick count
+//
+//	  }
+//	  HAL_Delay(1);
+
   }
   /* USER CODE END 3 */
 }
@@ -211,50 +266,50 @@ void SystemClock_Config(void)
 }
 
 /**
-  * @brief I2C3 Initialization Function
+  * @brief I2C2 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_I2C3_Init(void)
+static void MX_I2C2_Init(void)
 {
 
-  /* USER CODE BEGIN I2C3_Init 0 */
+  /* USER CODE BEGIN I2C2_Init 0 */
 
-  /* USER CODE END I2C3_Init 0 */
+  /* USER CODE END I2C2_Init 0 */
 
-  /* USER CODE BEGIN I2C3_Init 1 */
+  /* USER CODE BEGIN I2C2_Init 1 */
 
-  /* USER CODE END I2C3_Init 1 */
-  hi2c3.Instance = I2C3;
-  hi2c3.Init.Timing = 0x10909CEC;
-  hi2c3.Init.OwnAddress1 = 0;
-  hi2c3.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-  hi2c3.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-  hi2c3.Init.OwnAddress2 = 0;
-  hi2c3.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
-  hi2c3.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c3.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-  if (HAL_I2C_Init(&hi2c3) != HAL_OK)
+  /* USER CODE END I2C2_Init 1 */
+  hi2c2.Instance = I2C2;
+  hi2c2.Init.Timing = 0x10D19CE4;
+  hi2c2.Init.OwnAddress1 = 0;
+  hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c2.Init.OwnAddress2 = 0;
+  hi2c2.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+  hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c2) != HAL_OK)
   {
     Error_Handler();
   }
 
   /** Configure Analogue filter
   */
-  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c3, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c2, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
   {
     Error_Handler();
   }
 
   /** Configure Digital filter
   */
-  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c3, 0) != HAL_OK)
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c2, 0) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN I2C3_Init 2 */
+  /* USER CODE BEGIN I2C2_Init 2 */
 
-  /* USER CODE END I2C3_Init 2 */
+  /* USER CODE END I2C2_Init 2 */
 
 }
 
@@ -330,6 +385,11 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+	counter++;
+	if(counter==4) counter = 0;
+}
+
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -364,6 +424,12 @@ void StartButtonTask(void const * argument)
   for(;;)
   {
     osDelay(1);
+
+    if(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)==0){
+    	counter++;
+    	while(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)==0);
+    }
+
   }
   /* USER CODE END StartButtonTask */
 }
@@ -381,7 +447,25 @@ void StartTXTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    osDelay(100);
+
+    if(counter%4==0){
+    	sprintf(buffer_gyro, "Gyro X:%.2f Y:%.2f Z:%.2f", gyro[0], gyro[1], gyro[2]);
+    	status = HAL_UART_Transmit(&huart1, (uint8_t *)buffer_gyro, sizeof(buffer_gyro), 1000);
+    }
+    else if(counter%4==1){
+    	sprintf(buffer_pressure, "Pressure: %u", pressure);
+    	status = HAL_UART_Transmit(&huart1, (uint8_t *)buffer_pressure, sizeof(buffer_pressure), 1000);
+    }
+    else if(counter%4==2){
+    	sprintf(buffer_temp, "Temp: %u", temp);
+    	status = HAL_UART_Transmit(&huart1, (uint8_t *)buffer_temp, sizeof(buffer_temp), 1000);
+    }
+    else if(counter%4==3){
+    	sprintf(buffer_magneto, "Magneto X:%d Y:%d Z:%d", magneto[0], magneto[1], magneto[2]);
+    	status = HAL_UART_Transmit(&huart1, (uint8_t *)buffer_magneto, sizeof(buffer_magneto), 1000);
+    }
+
   }
   /* USER CODE END StartTXTask */
 }
@@ -399,7 +483,21 @@ void StartSensorTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    osDelay(100);
+
+    if(counter%4==0){
+    	BSP_GYRO_GetXYZ(gyro);
+    }
+    else if(counter%4==1){
+    	pressure = BSP_PSENSOR_ReadPressure();
+    }
+    else if(counter%4==2){
+    	temp = BSP_TSENSOR_ReadTemp();
+    }
+    else if(counter%4==3){
+    	BSP_MAGNETO_GetXYZ(magneto);
+    }
+
   }
   /* USER CODE END StartSensorTask */
 }
