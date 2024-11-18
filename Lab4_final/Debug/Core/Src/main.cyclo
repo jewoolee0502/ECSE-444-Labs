@@ -4,9 +4,9 @@
 ../Core/Src/main.c:282:13:MX_USART1_UART_Init	5
 ../Core/Src/main.c:330:13:MX_GPIO_Init	1
 ../Core/Src/main.c:365:6:HAL_GPIO_EXTI_Callback	1
-../Core/Src/main.c:378:6:buttonPressed	2
-../Core/Src/main.c:401:6:automaticChange	3
-../Core/Src/main.c:428:6:readSensor	1
-../Core/Src/main.c:450:6:displayData	5
-../Core/Src/main.c:487:6:HAL_TIM_PeriodElapsedCallback	2
-../Core/Src/main.c:504:6:Error_Handler	1
+../Core/Src/main.c:378:6:buttonStatusTask	2
+../Core/Src/main.c:402:6:autoSwitchTask	3
+../Core/Src/main.c:431:6:readSensorTask	1
+../Core/Src/main.c:453:6:StartTXTask	5
+../Core/Src/main.c:490:6:HAL_TIM_PeriodElapsedCallback	2
+../Core/Src/main.c:507:6:Error_Handler	1
