@@ -1,0 +1,67 @@
+15:08:17 **** Incremental Build of configuration Debug for project Lab4_final ****
+make -j7 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L4S5xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'buttonPressed':
+../Core/Src/main.c:386:15: warning: operation on 'count' may be undefined [-Wsequence-point]
+  386 |         count = (count++) % 4;
+      |         ~~~~~~^~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'automaticChange':
+../Core/Src/main.c:415:23: warning: operation on 'count' may be undefined [-Wsequence-point]
+  415 |                 count = (++count) % 4;
+      |                 ~~~~~~^~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'readSensor':
+../Core/Src/main.c:436:27: warning: passing argument 1 of 'BSP_GYRO_GetXYZ' from incompatible pointer type [-Wincompatible-pointer-types]
+  436 |           BSP_GYRO_GetXYZ(&gyro);
+      |                           ^~~~~
+      |                           |
+      |                           float (*)[3]
+In file included from ../Core/Src/main.c:25:
+../Core/Inc/stm32l4s5i_iot01_gyro.h:66:29: note: expected 'float *' but argument is of type 'float (*)[3]'
+   66 | void BSP_GYRO_GetXYZ(float* pfData);
+      |                      ~~~~~~~^~~~~~
+../Core/Src/main.c:438:30: warning: passing argument 1 of 'BSP_MAGNETO_GetXYZ' from incompatible pointer type [-Wincompatible-pointer-types]
+  438 |           BSP_MAGNETO_GetXYZ(&magneto);
+      |                              ^~~~~~~~
+      |                              |
+      |                              int16_t (*)[3] {aka short int (*)[3]}
+In file included from ../Core/Src/main.c:27:
+../Core/Inc/stm32l4s5i_iot01_magneto.h:66:34: note: expected 'int16_t *' {aka 'short int *'} but argument is of type 'int16_t (*)[3]' {aka 'short int (*)[3]'}
+   66 | void BSP_MAGNETO_GetXYZ(int16_t *pDataXYZ);
+      |                         ~~~~~~~~~^~~~~~~~
+../Core/Src/main.c: In function 'displayData':
+../Core/Src/main.c:457:9: warning: implicit declaration of function 'memset' [-Wimplicit-function-declaration]
+  457 |         memset(result, ' ', 69);
+      |         ^~~~~~
+../Core/Src/main.c:30:1: note: include '<string.h>' or provide a declaration of 'memset'
+   29 | #include "stm32l4s5i_iot01_tsensor.h"
+  +++ |+#include <string.h>
+   30 | 
+../Core/Src/main.c:457:9: warning: incompatible implicit declaration of built-in function 'memset' [-Wbuiltin-declaration-mismatch]
+  457 |         memset(result, ' ', 69);
+      |         ^~~~~~
+../Core/Src/main.c:457:9: note: include '<string.h>' or provide a declaration of 'memset'
+../Core/Src/main.c:461:11: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  461 |           sprintf(result, "\n\rHumidity: %.2d", (uint8_t) humidity);
+      |           ^~~~~~~
+../Core/Src/main.c:30:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   29 | #include "stm32l4s5i_iot01_tsensor.h"
+  +++ |+#include <stdio.h>
+   30 | 
+../Core/Src/main.c:461:11: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+  461 |           sprintf(result, "\n\rHumidity: %.2d", (uint8_t) humidity);
+      |           ^~~~~~~
+../Core/Src/main.c:461:11: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+arm-none-eabi-gcc -o "Lab4_final.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab4_final/STM32L4S5VITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab4_final.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Lab4_final.elf
+ 
+arm-none-eabi-size  Lab4_final.elf 
+arm-none-eabi-objdump -h -S Lab4_final.elf  > "Lab4_final.list"
+   text	   data	    bss	    dec	    hex	filename
+  44748	    600	   6456	  51804	   ca5c	Lab4_final.elf
+Finished building: default.size.stdout
+ 
+Finished building: Lab4_final.list
+ 
+
+15:08:18 Build Finished. 0 errors, 8 warnings. (took 1s.66ms)
+

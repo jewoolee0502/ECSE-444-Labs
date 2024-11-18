@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2024 STMicroelectronics.
+  * Copyright (c) 2023 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -22,16 +22,15 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
-#include <stdlib.h>
 
-#include "arm_math.h"
-#define  ARM_MATH_CM4
-
+#include "stm32l4s5i_iot01.h"
 #include "stm32l4s5i_iot01_gyro.h"
 #include "stm32l4s5i_iot01_magneto.h"
 #include "stm32l4s5i_iot01_psensor.h"
 #include "stm32l4s5i_iot01_tsensor.h"
+
+
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,7 +40,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -55,9 +53,6 @@ I2C_HandleTypeDef hi2c2;
 UART_HandleTypeDef huart1;
 
 osThreadId defaultTaskHandle;
-osThreadId buttonPressHandle;
-osThreadId transmitDataHandle;
-osThreadId readSensorHandle;
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -68,11 +63,6 @@ static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_I2C2_Init(void);
 void StartDefaultTask(void const * argument);
-void StartButtonTask(void const * argument);
-void StartTXTask(void const * argument);
-void StartSensorTask(void const * argument);
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
 
 /* USER CODE BEGIN PFP */
 
@@ -81,18 +71,22 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-uint16_t temp;
-uint16_t pressure;
-int16_t  magneto[3];
-int  gyro[] = {0,0,0};
-char buffer_temp[20];
-char buffer_pressure[20];
-char buffer_magneto[50];
-char buffer_gyro[80];
-//char buffer[550];
-uint8_t status_g;
-int counter = 0;
-HAL_StatusTypeDef status;
+ float temp;
+ float pressure;
+ int16_t  magneto[3];
+ float  gyro[3];
+
+ char buffer_temp[69];
+ char buffer_pressure[69];
+ char buffer_magneto[69];
+ char buffer_gyro[69];
+ //char buffer[550];
+// uint8_t status_g;
+
+ int counter = 0;
+
+ HAL_StatusTypeDef status;
+
 
 /* USER CODE END 0 */
 
@@ -128,11 +122,14 @@ int main(void)
   MX_USART1_UART_Init();
   MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
+  HAL_UART_Init(&huart1);
 
-  status_g = BSP_GYRO_Init();
+  BSP_GYRO_Init();
   BSP_MAGNETO_Init();
   BSP_TSENSOR_Init();
   BSP_PSENSOR_Init();
+
+
 
   /* USER CODE END 2 */
 
@@ -157,18 +154,6 @@ int main(void)
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
-  /* definition and creation of buttonPress */
-  osThreadDef(buttonPress, StartButtonTask, osPriorityIdle, 0, 128);
-  buttonPressHandle = osThreadCreate(osThread(buttonPress), NULL);
-
-  /* definition and creation of transmitData */
-  osThreadDef(transmitData, StartTXTask, osPriorityIdle, 0, 128);
-  transmitDataHandle = osThreadCreate(osThread(transmitData), NULL);
-
-  /* definition and creation of readSensor */
-  osThreadDef(readSensor, StartSensorTask, osPriorityIdle, 0, 128);
-  readSensorHandle = osThreadCreate(osThread(readSensor), NULL);
-
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -180,7 +165,6 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
 //  uint32_t lastTick = 0; // Store the last tick count
 //  uint32_t currentTick = 0; // Store the current tick count
 
@@ -189,28 +173,27 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+//    currentTick = HAL_GetTick();
+//
+//    if((currentTick - lastTick) >= 100){ // Check if 100ms have passed
+//      // Sensor readings
+//        BSP_MAGNETO_GetXYZ(magneto);
+//        pressure = BSP_PSENSOR_ReadPressure();
+//        temp = BSP_TSENSOR_ReadTemp();
+//        BSP_GYRO_GetXYZ(gyro);
+//        sprintf(buffer_temp, "Temp: %u", temp);
+//        sprintf(buffer_pressure, "Pressure: %u", pressure);
+//        sprintf(buffer_magneto, "Magneto X:%d Y:%d Z:%d", magneto[0], magneto[1], magneto[2]);
+//        sprintf(buffer_gyro, "Gyro X:%.2f Y:%.2f Z:%.2f", gyro[0], gyro[1], gyro[2]);
+//        snprintf(buffer, sizeof(buffer), "%s %s %s %s\n", buffer_temp, buffer_pressure, buffer_magneto, buffer_gyro);
+//        status = HAL_UART_Transmit(&huart1, (uint8_t *)buffer, sizeof(buffer), 1000);
+//
+//
+//      lastTick = currentTick; // Update the last tick count
+//
+//   }
 
-//	  currentTick = HAL_GetTick();
-//
-//	  if((currentTick - lastTick) >= 100){ // Check if 100ms have passed
-//		  // Sensor readings
-//		  BSP_MAGNETO_GetXYZ(magneto);
-//		  pressure = BSP_PSENSOR_ReadPressure();
-//		  temp = BSP_TSENSOR_ReadTemp();
-//		  BSP_GYRO_GetXYZ(gyro);
-//		  sprintf(buffer_temp, "Temp: %u", temp);
-//		  sprintf(buffer_pressure, "Pressure: %u", pressure);
-//		  sprintf(buffer_magneto, "Magneto X:%d Y:%d Z:%d", magneto[0], magneto[1], magneto[2]);
-//		  sprintf(buffer_gyro, "Gyro X:%.2f Y:%.2f Z:%.2f", gyro[0], gyro[1], gyro[2]);
-//		  snprintf(buffer, sizeof(buffer), "%s %s %s %s\n", buffer_temp, buffer_pressure, buffer_magneto, buffer_gyro);
-//		  status = HAL_UART_Transmit(&huart1, (uint8_t *)buffer, sizeof(buffer), 1000);
-//
-//
-//		  lastTick = currentTick; // Update the last tick count
-//
-//	  }
-//	  HAL_Delay(1);
-
+    //HAL_Delay(1);
   }
   /* USER CODE END 3 */
 }
@@ -368,7 +351,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : BUTTON_Pin */
   GPIO_InitStruct.Pin = BUTTON_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(BUTTON_GPIO_Port, &GPIO_InitStruct);
 
@@ -379,16 +362,20 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LED_GPIO_Port, &GPIO_InitStruct);
 
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
 
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
-	counter++;
-	if(counter==4) counter = 0;
-}
+//void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+//	counter++;
+//	if(counter==4) counter = 0;
+//}
 
 /* USER CODE END 4 */
 
@@ -408,98 +395,6 @@ void StartDefaultTask(void const * argument)
     osDelay(1);
   }
   /* USER CODE END 5 */
-}
-
-/* USER CODE BEGIN Header_StartButtonTask */
-/**
-* @brief Function implementing the buttonPress thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartButtonTask */
-void StartButtonTask(void const * argument)
-{
-  /* USER CODE BEGIN StartButtonTask */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-
-    if(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)==0){
-    	counter++;
-    	while(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)==0);
-    }
-
-  }
-  /* USER CODE END StartButtonTask */
-}
-
-/* USER CODE BEGIN Header_StartTXTask */
-/**
-* @brief Function implementing the transmitData thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartTXTask */
-void StartTXTask(void const * argument)
-{
-  /* USER CODE BEGIN StartTXTask */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(100);
-
-    if(counter%4==0){
-    	sprintf(buffer_gyro, "Gyro X:%.2f Y:%.2f Z:%.2f", gyro[0], gyro[1], gyro[2]);
-    	status = HAL_UART_Transmit(&huart1, (uint8_t *)buffer_gyro, sizeof(buffer_gyro), 1000);
-    }
-    else if(counter%4==1){
-    	sprintf(buffer_pressure, "Pressure: %u", pressure);
-    	status = HAL_UART_Transmit(&huart1, (uint8_t *)buffer_pressure, sizeof(buffer_pressure), 1000);
-    }
-    else if(counter%4==2){
-    	sprintf(buffer_temp, "Temp: %u", temp);
-    	status = HAL_UART_Transmit(&huart1, (uint8_t *)buffer_temp, sizeof(buffer_temp), 1000);
-    }
-    else if(counter%4==3){
-    	sprintf(buffer_magneto, "Magneto X:%d Y:%d Z:%d", magneto[0], magneto[1], magneto[2]);
-    	status = HAL_UART_Transmit(&huart1, (uint8_t *)buffer_magneto, sizeof(buffer_magneto), 1000);
-    }
-
-  }
-  /* USER CODE END StartTXTask */
-}
-
-/* USER CODE BEGIN Header_StartSensorTask */
-/**
-* @brief Function implementing the readSensor thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartSensorTask */
-void StartSensorTask(void const * argument)
-{
-  /* USER CODE BEGIN StartSensorTask */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(100);
-
-    if(counter%4==0){
-    	BSP_GYRO_GetXYZ(gyro);
-    }
-    else if(counter%4==1){
-    	pressure = BSP_PSENSOR_ReadPressure();
-    }
-    else if(counter%4==2){
-    	temp = BSP_TSENSOR_ReadTemp();
-    }
-    else if(counter%4==3){
-    	BSP_MAGNETO_GetXYZ(magneto);
-    }
-
-  }
-  /* USER CODE END StartSensorTask */
 }
 
 /**

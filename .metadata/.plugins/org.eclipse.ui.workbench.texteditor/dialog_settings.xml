@@ -6,21 +6,41 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="triangle_data"/>
+		<item key="selection" value="button_status"/>
 		<list key="findhistory">
-			<item value="triangle_data"/>
-			<item value="triangle"/>
-			<item value="Callback"/>
-			<item value="CallBack"/>
-			<item value="CALLBACK"/>
-			<item value="temp"/>
+			<item value="pressed"/>
+			<item value="status"/>
+			<item value="count"/>
+			<item value="psensor"/>
+			<item value="hsensor"/>
+			<item value="psensor_data"/>
+			<item value="hsensor_data"/>
+			<item value="stringOutput"/>
+			<item value="magneto_data"/>
+			<item value="gyro_data"/>
+			<item value="timeElapsed"/>
+			<item value="gyro"/>
+			<item value="memset"/>
+			<item value="status_g"/>
+			<item value="BSP"/>
 		</list>
 		<list key="replacehistory">
+			<item value="button_status"/>
+			<item value="count"/>
+			<item value="time"/>
+			<item value="pressure"/>
+			<item value="humidity"/>
+			<item value="psensor"/>
+			<item value="hsensor"/>
+			<item value="result"/>
+			<item value="magneto"/>
+			<item value="gyro"/>
+			<item value=""/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item key="DIALOG_X_ORIGIN" value="672"/>
-		<item key="DIALOG_Y_ORIGIN" value="246"/>
+		<item key="DIALOG_Y_ORIGIN" value="391"/>
 		<item key="DIALOG_WIDTH" value="336"/>
 		<item key="DIALOG_HEIGHT" value="400"/>
 		<item key="DIALOG_FONT_NAME" value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont"/>
