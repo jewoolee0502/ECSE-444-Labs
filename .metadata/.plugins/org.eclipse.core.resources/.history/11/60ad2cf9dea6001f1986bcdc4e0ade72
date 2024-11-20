@@ -464,7 +464,7 @@ void StartTXTask(void const * argument)
 			sprintf(result, "\n\rHumidity: %.2d", (uint8_t) humidity);
 			break;
 		case 1:
-			sprintf(result, "\n\rGyro: %.2d, %.2d, %.2d", (uint8_t) gyro[0], (uint8_t) gyro[1], (uint8_t) gyro[2]);
+			sprintf(result, "\n\rGyro: %.2d, %.2d, %.2d", (int) gyro[0], (int) gyro[1], (int) gyro[2]);
 			break;
 		case 2:
 			sprintf(result, "\n\rPressure: %.2d", (uint8_t) pressure);

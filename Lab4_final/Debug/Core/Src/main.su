@@ -4,9 +4,9 @@
 ../Core/Src/main.c:282:13:MX_USART1_UART_Init	8	static
 ../Core/Src/main.c:330:13:MX_GPIO_Init	40	static
 ../Core/Src/main.c:365:6:HAL_GPIO_EXTI_Callback	16	static
-../Core/Src/main.c:378:6:buttonPressed	16	static
-../Core/Src/main.c:401:6:automaticChange	16	static
-../Core/Src/main.c:428:6:readSensor	16	static
-../Core/Src/main.c:450:6:displayData	24	static
-../Core/Src/main.c:487:6:HAL_TIM_PeriodElapsedCallback	16	static
-../Core/Src/main.c:504:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:378:6:buttonStatusTask	16	static
+../Core/Src/main.c:402:6:autoSwitchTask	16	static
+../Core/Src/main.c:431:6:readSensorTask	16	static
+../Core/Src/main.c:453:6:StartTXTask	24	static
+../Core/Src/main.c:490:6:HAL_TIM_PeriodElapsedCallback	16	static
+../Core/Src/main.c:507:6:Error_Handler	4	static,ignoring_inline_asm
