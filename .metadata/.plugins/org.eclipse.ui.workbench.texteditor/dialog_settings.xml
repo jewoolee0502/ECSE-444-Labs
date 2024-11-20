@@ -6,7 +6,7 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="button_status"/>
+		<item key="selection" value="Pressed"/>
 		<list key="findhistory">
 			<item value="pressed"/>
 			<item value="status"/>

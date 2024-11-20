@@ -9,6 +9,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="/Volumes/Untitled/Lab4new"/>
 			<item value="/Users/jewoolee/STM32CubeIDE/workspace_1.16.0"/>
 			<item value="/Users/jewoolee/STM32CubeIDE/workspace_1.16.0/Lab2_Both"/>
 			<item value="/Users/jewoolee/Desktop/McGill/2024 Fall/ECSE 444/Last Year/(Copy) Archive/Lab2_Both"/>
