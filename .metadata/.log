@@ -6862,3 +6862,16 @@ Binding(ALT+ARROW_RIGHT,
 
 !ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2024-11-18 16:43:39.879
 !MESSAGE Existing sessions are:
+!SESSION 2024-11-19 20:27:52.493 -----------------------------------------------
+eclipse.buildId=Version 1.16.1
+java.version=17.0.11
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_CA
+Framework arguments:  -keyring /Users/jewoolee/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/jewoolee/.eclipse_keyring
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-11-19 20:28:01.101
+!MESSAGE Log4j2 initialized with config file /Users/jewoolee/STM32CubeIDE/workspace_1.16.0/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-11-19 20:28:12.438
+!MESSAGE Started RMI Server, listening on port 41337
