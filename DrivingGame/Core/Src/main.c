@@ -27,12 +27,16 @@
 #include "stm32l4s5i_iot01_gyro.h"
 
 #include "arm_math.h"
+
+#include <stdint.h>
+
+#define PERIOD 15
 #define  ARM_MATH_CM4
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+uint16_t sine[PERIOD];
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -173,10 +177,25 @@ int main(void)
 	/* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		/* USER CODE END WHILE */
 
-		/* USER CODE BEGIN 3 */
-	}
+	    /* USER CODE END WHILE /
+
+	    / USER CODE BEGIN 3 */
+
+	      //Part 1
+	      for(uint32_t i=0; i<PERIOD; i++){
+
+	          sineWave = sine[i];
+
+	          if(HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, sineWave) != HAL_OK){
+	              Error_Handler();
+	          }
+
+	          HAL_Delay(PERIOD/15); //to hear the sound on the speaker
+	          //HAL_Delay(500); //to visualize the graph
+	      }
+
+	  }
 	/* USER CODE END 3 */
 }
 
